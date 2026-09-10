@@ -136,7 +136,7 @@ RUN chmod 755 /bin/myhello && \
 EOF
 
   # Convert
-  /usr/local/bin/stacker-from convert --docker-file Dockerfile --output-file stacker.yaml --substitute-file stacker-subs.yaml
+  stacker convert --docker-file Dockerfile --output-file stacker.yaml --substitute-file stacker-subs.yaml
 
   cat stacker.yaml
 
@@ -147,7 +147,7 @@ EOF
   grep -A 5 "mybuild:" stacker.yaml | grep -zo "type: docker.*url: docker://golang"
 
   # build should work
-  stacker-from build -f stacker.yaml --substitute IMAGE=testFROMAS
+  stacker build -f stacker.yaml --substitute IMAGE=testFROMAS
 
   rm -f stacker.yaml stacker-subs.yaml Dockerfile myhello.go
   stacker clean
